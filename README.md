@@ -9,6 +9,7 @@ This is a Machine Learning-based project that predicts future sales based on inp
 - Real-time Prediction
 
 ##Tech Stack
+
 -HTML
 -CSS
 -Java Script
