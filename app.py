@@ -6,11 +6,12 @@ import json
 
 app = Flask(__name__)
 
-# load model
-model = pickle.load(open("model.pkl", "rb"))
+import os
 
-# load dataset
-df = pd.read_csv("clean_sales.csv")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model = pickle.load(open(os.path.join(BASE_DIR, "model.pkl"), "rb"))
+df = pd.read_csv(os.path.join(BASE_DIR, "clean_sales.csv"))
 
 @app.route("/")
 def home():
