@@ -1,2 +1,15 @@
-# Ml-Sales-Prediction
-End-to-end machine learning project for sales prediction using data preprocessing, feature engineering, and Random Forest regression. Integrated with Flask API and deployed for real-time usage.
+#Sales Prediction ML Project
+
+This is a Machine Learning-based project that predicts future sales based on input features like Quantity, Discount, and Month.
+
+##Features
+- Data Cleaning using Pandas
+- Model Training using Random Forest
+- REST API using Flask
+- Real-time Prediction
+
+##Tech Stack
+- Python
+- Pandas
+- Scikit-learn
+- Flask
