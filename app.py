@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, render_template
 import pickle
 import numpy as np
@@ -6,26 +7,23 @@ import json
 
 app = Flask(__name__)
 
-import os
-
+# base directory fix
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# load model
 model = pickle.load(open(os.path.join(BASE_DIR, "model.pkl"), "rb"))
+
+# load data
 df = pd.read_csv(os.path.join(BASE_DIR, "clean_sales.csv"))
 
 @app.route("/")
 def home():
     monthly_data = df.groupby("Month")["Sales"].mean()
 
-    labels = list(monthly_data.index)
-    values = list(monthly_data.values)
-
-    # convert to JSON
-    labels = json.dumps(labels)
-    values = json.dumps(values)
+    labels = json.dumps(list(monthly_data.index))
+    values = json.dumps(list(monthly_data.values))
 
     return render_template("index.html", labels=labels, values=values)
-
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -37,12 +35,8 @@ def predict():
     prediction = model.predict(features)[0]
 
     monthly_data = df.groupby("Month")["Sales"].mean()
-    labels = list(monthly_data.index)
-    values = list(monthly_data.values)
-
-    # convert to JSON
-    labels = json.dumps(labels)
-    values = json.dumps(values)
+    labels = json.dumps(list(monthly_data.index))
+    values = json.dumps(list(monthly_data.values))
 
     return render_template(
         "index.html",
@@ -50,7 +44,6 @@ def predict():
         labels=labels,
         values=values
     )
-
 
 if __name__ == "__main__":
     app.run()
